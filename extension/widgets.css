@@ -468,3 +468,30 @@
  .rd .rd-course-rail .rd-rail-course > .rd-grade {bottom:max(0px, calc(var(--rd-rail-pad) - 8px));}
  .rd .rd-course-rail .rd-rail-course:has(> .rd-frame) > .rd-grade {bottom:max(2px, calc(var(--rd-rail-pad) - 4px));}
 }
+
+/* Next school day (next-day.js): one section per course, each piece tagged and linked to how it is handed in. */
+.rd .rd-nextday-day {margin:0 0 6px;font-size:13.5px;color:var(--rd-muted);}
+.rd .rd-nextday-day strong {color:var(--rd-ink);font-size:15px;}
+.rd .rd-nextday-course {border-left:3px solid var(--rd-course);padding-left:10px;margin:8px 0 10px;}
+.rd .rd-nextday-course .rd-widget-label {margin-top:0;}
+.rd .rd-nextday-list,.rd .rd-nextday-ahead {list-style:none;margin:2px 0 8px;padding:0;display:grid;gap:4px;}
+.rd .rd-nextday-row,.rd .rd-nextday-ahead li {display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:start;}
+.rd .rd-nextday-ahead li {grid-template-columns:auto minmax(0,1fr);border-left:3px solid var(--rd-course);padding-left:8px;}
+.rd .rd-nextday-open {display:grid;gap:1px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;min-width:0;}
+.rd .rd-nextday-open strong {font-weight:600;overflow-wrap:anywhere;}
+.rd .rd-nextday-open small {color:var(--rd-muted);font-size:12px;}
+.rd .rd-nextday-open:hover strong {text-decoration:underline;text-underline-offset:2px;}
+.rd .rd-nextday-tag {font-size:11px;font-weight:650;line-height:1;padding:4px 6px;border-radius:5px;margin-top:2px;background:color-mix(in srgb,var(--rd-muted) 14%,transparent);color:var(--rd-ink);}
+.rd .rd-nextday-tag[data-kind="test"] {background:#f6d6cf;color:#7a2416;}
+.rd .rd-nextday-tag[data-kind="quiz"] {background:#f5e3b8;color:#6b4a07;}
+.rd .rd-nextday-tag[data-kind="writing"] {background:#e4dcf7;color:#4a3584;}
+.rd .rd-nextday-tag[data-kind="reading"] {background:#d8eedc;color:#235c34;}
+.rd[data-theme="dark"] .rd-nextday-tag[data-kind="test"] {background:#5a2a22;color:#f6c9bf;}
+.rd[data-theme="dark"] .rd-nextday-tag[data-kind="quiz"] {background:#4d3d17;color:#f0d79a;}
+.rd[data-theme="dark"] .rd-nextday-tag[data-kind="writing"] {background:#3a3157;color:#d9cdf7;}
+.rd[data-theme="dark"] .rd-nextday-tag[data-kind="reading"] {background:#24402c;color:#bfe5c8;}
+.rd .rd-nextday-row:not(:has(.rd-nextday-tag)) {grid-template-columns:minmax(0,1fr) auto;}
+.rd .rd-nextday-ahead li:not(:has(.rd-nextday-tag)) {grid-template-columns:minmax(0,1fr);}
+.rd .rd-nextday-go {font-size:12px;font-weight:600;white-space:nowrap;padding:4px 9px;border-radius:999px;background:var(--rd-accent);color:#fff;text-decoration:none;}
+.rd .rd-nextday-go:hover {filter:brightness(1.08);}
+.rd .rd-nextday-go:focus-visible {outline:2px solid var(--rd-accent);outline-offset:2px;}

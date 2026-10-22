@@ -10,6 +10,7 @@
  const INFO={
   context:{hint:'Announcements, messages and the teacher’s page for one course.'},
   today:{hint:'What you planned for today and what is due. Tick things off, add your own.'},
+  nextday:{hint:'Everything due by the end of the next school day, course by course, with the way to hand each piece in; tests and quizzes in the week after.'},
   week:{hint:'Seven days at a glance: how much is on each one.'},
   timer:{hint:'A 15 to 60 minute focus session. Your pony studies with you.'},
   clock:{hint:'The time, the date, and how long until the next thing is due.'},
@@ -24,6 +25,7 @@
  const ART={
   context:'<path d="M4.5 5.2c5-.6 10-.5 15 .1l-.2 11.6c-4.9.6-9.9.5-14.7-.1z"/><path d="M8 9h8M8 12.4h5.4"/><path d="M9.4 17l-.6 3.4 4-3.2"/>',
   today:'<path d="M5.2 4.4c4.6-.5 9.2-.4 13.6.1l.2 15c-4.6.5-9.3.5-13.9 0z"/><path d="M8 9.4l1.4 1.5 2.4-2.9M8 14.6l1.4 1.5 2.4-2.9M14 9.8h3M14 15h3"/>',
+  nextday:'<path d="M4.4 6.2c5.1-.6 10.1-.5 15.2.1l-.1 13.2c-5 .5-10 .5-15 0z"/><path d="M4.6 10.2h14.8M8.4 3.8v3.8M15.6 3.8v3.8"/><path d="M9 14.6h4.6m-1.8-2 2 2-2 2"/>',
   week:'<path d="M3.6 6.4c5.6-.5 11.2-.5 16.8 0l.1 12.4c-5.7.5-11.4.5-17 0z"/><path d="M3.8 10.2h16.4M8 3.6v4M16 3.6v4M7.4 13.4v2.8M12 13.4v2.8M16.6 13.4v2.8"/>',
   timer:'<path d="M12 6.4c4.2-.2 7.4 3 7.2 7.2-.2 4-3.2 7-7.4 6.8-4-.2-7-3.2-6.8-7.4.2-3.8 3-6.6 7-6.6"/><path d="M12 13.4V9.6M9.6 3.6h4.8M12 3.6v2.6M17.6 7.2l1.4-1.4"/>',
   clock:'<path d="M12 4c4.6-.2 8.2 3.4 8 8-.2 4.4-3.6 8-8.2 7.8C7.4 19.6 4 16.2 4.2 11.6 4.4 7.4 7.6 4 12 4"/><path d="M12 7.6v4.8l3.2 1.8"/>',
@@ -116,6 +118,9 @@ ${board.waiting.length||board.overdue.length?`<p class="rd-widget-note">${[board
 <div class="rd-timer-actions">${action('timer-toggle',f.running?'Pause':f.left<f.total&&f.left>0?'Resume':'Start','','rd-button rd-button-primary')}${action('timer-reset','Reset',f.running||f.left<f.total?'':'disabled','rd-text-button')}</div>
 <div class="rd-timer-lengths" role="group" aria-label="Session length">${[15,25,45,60].map(n=>action('timer-minutes',`${n}`,`data-minutes="${n}" aria-pressed="${f.minutes===n}" aria-label="${n} minutes" ${f.running?'disabled':''}`,'rd-chip')).join('')}<span>min</span></div>
 ${f.sessions?`<p class="rd-widget-note">${f.sessions} session${f.sessions===1?'':'s'} finished</p>`:''}</div>`;
+  }else if(key==='nextday'){
+   // next-day.js: everything due by the end of the next school day, from the assignments already loaded.
+   body=root.ReserveNextDay?root.ReserveNextDay.render(c,h,{action}):'';
   }else if(key==='clock'){
    const next=nextDue(c,h);
    body=`<div class="rd-clock"><time class="rd-clock-time" data-rd-clock>${E(time(c.now,{hour:'numeric',minute:'2-digit'}))}</time><p class="rd-clock-date">${E(time(c.now,{weekday:'long',month:'long',day:'numeric'}))}</p>
